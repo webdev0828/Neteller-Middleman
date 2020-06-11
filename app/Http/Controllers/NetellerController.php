@@ -25,9 +25,11 @@ class NetellerController extends Controller
 
     public function depositWebhook(Request $request) {
         $data = $request->all();
+        file_put_contents('a.txt', json_encode($data));
         try {
             $response = $this->client->post('https://stagingpayment.dimabet.com/api/payment/paysafe/webhook', [RequestOptions::JSON => $request->all()]);        
         } catch (\Exception $e) {
+            file_put_contents('a.txt', $e->getMessage());
             throw $e;
         };        
     }
