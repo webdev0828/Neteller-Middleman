@@ -11,4 +11,13 @@
 |
 */
 
-Route::get('/', 'NetellerController@index');
+use Illuminate\Support\Facades\Route;
+use TCG\Voyager\Facades\Voyager;
+use Illuminate\Support\Facades\Auth;
+
+Auth::routes();
+
+Route::get('/', 'NetellerController@index')->name('index');
+Route::get('/home', 'NetellerController@home')->name('name');
+Route::post('/add', 'NetellerController@add')->name('add');
+Route::get('/delete/{id}', 'NetellerController@delete')->name('delete');
