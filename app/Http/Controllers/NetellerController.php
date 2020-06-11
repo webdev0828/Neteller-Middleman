@@ -50,7 +50,7 @@ class NetellerController extends Controller
         $data = [
             'hosts' => $hosts
         ];
-        return view('home', $data);
+        return back();
     }
 
     public function depositWebhook(Request $request) {
