@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use App\Host;
+use App\Transaction;
 
 class NetellerController extends Controller
 {
@@ -15,7 +16,7 @@ class NetellerController extends Controller
         $this->client = new Client();        
     }
 
-    public function index() {
+    public function index() {        
         return view('welcome');
     }
 
@@ -55,6 +56,13 @@ class NetellerController extends Controller
 
     public function depositWebhook(Request $request) {
         $data = $request->all();
+        
+        // save webhook response
+        $detail = [
+            'detail' => json_encode($data)
+        ];
+        Transaction::create($detail);
+
         $hosts = Host::all();
         try {
             foreach($hosts as $host) {
